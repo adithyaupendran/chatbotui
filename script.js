@@ -2,36 +2,22 @@ document.addEventListener("DOMContentLoaded", function () {
     const messagesContainer = document.getElementById("messages");
     const userInput = document.getElementById("user-input");
     const sendButton = document.getElementById("send-btn");
-    const chatbotContainer = document.querySelector(".chatbot-container");
-    const bgBtn1 = document.getElementById("bg-btn1"); // Clear chat
-    const bgBtn2 = document.getElementById("bg-btn2"); // Toggle chatbot
+    const bgBtn1 = document.getElementById("bg-btn1");
+    const bgBtn2 = document.getElementById("bg-btn2");
 
-    // Send message function
+    // Function to send user message
     function sendMessage() {
         if (userInput.value.trim() !== "") {
-            // Create user message bubble
-            const userMessage = createMessageElement(userInput.value, "user-message");
-            messagesContainer.appendChild(userMessage);
-            
-            // Clear input field
+            appendMessage(userInput.value, "user-message");
             userInput.value = "";
 
-            // Simulate bot response after 1 second
-            setTimeout(() => {
-                const botMessage = createMessageElement("I'm here to assist you!", "bot-message");
-                messagesContainer.appendChild(botMessage);
-
-                // Scroll to the newest message
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            }, 1000);
-
-            // Scroll to the newest message
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            // Simulate bot response
+            setTimeout(() => appendMessage("I'm here to assist you!", "bot-message"), 1000);
         }
     }
 
-    // Create message element
-    function createMessageElement(text, className) {
+    // Function to create and append message
+    function appendMessage(text, className) {
         const messageWrapper = document.createElement("div");
         messageWrapper.className = `message ${className}`;
 
@@ -40,35 +26,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const timestamp = document.createElement("span");
         timestamp.className = "timestamp";
-        timestamp.innerText = getCurrentTime(); // Get current time
+        timestamp.innerText = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
         messageWrapper.appendChild(messageText);
         messageWrapper.appendChild(timestamp);
+        messagesContainer.appendChild(messageWrapper);
 
-        return messageWrapper;
+        // Auto-scroll to latest message
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 
-    // Get current time
-    function getCurrentTime() {
-        const now = new Date();
-        return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    }
-
-    // Button click to send message
+    // Send button event
     sendButton.addEventListener("click", sendMessage);
 
-    // Enter key to send message
+    // Enter key event
     userInput.addEventListener("keypress", function (event) {
         if (event.key === "Enter") sendMessage();
     });
 
-    // Toggle chatbot visibility
-    bgBtn1.addEventListener("click", function () {
-        window.open("chatbot1.html", "_blank");
-    });
-    
-    bgBtn2.addEventListener("click", function () {
-        window.open("chatbot2.html", "_blank");
-    });
-    
+    // Background button events
+    bgBtn1.addEventListener("click", () => window.open("chatbot1.html", "_blank"));
+    bgBtn2.addEventListener("click", () => window.open("chatbot2.html", "_blank"));
+
+    // Switch Chat Options
+    window.switchChat = function(option) {
+        if (option === 'chat1') {
+            appendMessage("You selected Option 1! How can I help?", "bot-message");
+        } else {
+            appendMessage("You selected Option 2! What would you like to do?", "bot-message");
+        }
+    };
 });

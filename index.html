@@ -12,25 +12,20 @@
         <button class="nav-button" onclick="switchChat('chat2')">🔥 Option 2</button>
     </div>
     <div class="connection"></div>
-    <div class="chat-container" id="chatbox">
-        <div class="chat-header">Chatbot</div>
-        <div class="chat-content" id="chat-content">Welcome! Choose an option.</div>
-        <input type="text" placeholder="Type your message..." class="chat-input">
+    <div class="chatbot-container">
+        <div class="chatbot-header">Chatbot</div>
+        <div class="chat-window" id="messages">Welcome! Choose an option.</div>
+        <div class="input-container">
+            <input type="text" id="user-input" placeholder="Type your message..." class="input-field">
+            <button id="send-btn" class="send-button">Send</button>
+        </div>
     </div>
-    
-    <script>
-        function switchChat(option) {
-            const chatContent = document.getElementById('chat-content');
-            const connection = document.querySelector('.connection');
-            
-            if (option === 'chat1') {
-                chatContent.innerHTML = "You selected Option 1! How can I help?";
-                connection.style.top = "50px"; // Adjust line connection position
-            } else {
-                chatContent.innerHTML = "You selected Option 2! What would you like to do?";
-                connection.style.top = "100px";
-            }
-        }
-    </script>
+
+    <div class="background-buttons">
+        <button id="bg-btn1" class="bg-btn">🔄</button>
+        <button id="bg-btn2" class="bg-btn">💬</button>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
