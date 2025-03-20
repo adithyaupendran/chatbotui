@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot UI</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sidebar">
+        <button class="nav-button" onclick="switchChat('chat1')">⚡ Option 1</button>
+        <button class="nav-button" onclick="switchChat('chat2')">🔥 Option 2</button>
+    </div>
+    <div class="connection"></div>
+    <div class="chat-container" id="chatbox">
+        <div class="chat-header">Chatbot</div>
+        <div class="chat-content" id="chat-content">Welcome! Choose an option.</div>
+        <input type="text" placeholder="Type your message..." class="chat-input">
+    </div>
+    
+    <script>
+        function switchChat(option) {
+            const chatContent = document.getElementById('chat-content');
+            const connection = document.querySelector('.connection');
+            
+            if (option === 'chat1') {
+                chatContent.innerHTML = "You selected Option 1! How can I help?";
+                connection.style.top = "50px"; // Adjust line connection position
+            } else {
+                chatContent.innerHTML = "You selected Option 2! What would you like to do?";
+                connection.style.top = "100px";
+            }
+        }
+    </script>
+</body>
+</html>
